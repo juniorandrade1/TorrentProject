@@ -186,6 +186,16 @@ public class FileClass {
         return info;
     }
 
+    public String getTorrentInfo() {
+        String info;
+        info = this.name + "\n" + this.id + "\n" + this.size + " " + this.numParts;
+        for(int i = 0; i < this.numParts; ++i) {
+            info += " " + hashParts[i];
+        }
+        info += "\n";
+        return info;
+    }
+
     public String getId() { return this.id; }
     public String getName(){ return this.name; }
     public String getPath(){ return this.path; }

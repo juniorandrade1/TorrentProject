@@ -143,6 +143,40 @@ public class MainMenu {
         btnAbrirTorrent.setBounds(190, 11, 161, 30);
         panel.add(btnAbrirTorrent);
 
+
+
+        JButton btnGerarTorrent = new JButton("Gerar Torrent");
+        btnGerarTorrent.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fc = new JFileChooser();
+                int res = fc.showOpenDialog(null);
+                if(res == JFileChooser.APPROVE_OPTION){
+                    File arquivo = fc.getSelectedFile();
+                    JOptionPane.showMessageDialog(null, "Voce escolheu o arquivo: " + arquivo.getName());
+                    JFileChooser fc2 = new JFileChooser();
+                    int res2 = fc2.showOpenDialog(null);
+                    if(res2 == JFileChooser.APPROVE_OPTION){
+                        File arquivo2 = fc2.getSelectedFile();
+                        try {
+                            FileController.generateTorrentFile(arquivo.getPath(), arquivo2.getPath());
+                            refreshTable(model);
+                        } catch (RemoteException e1) {
+                            JOptionPane.showMessageDialog(null, "Problema na adição de arquivo de torrent");
+                            e1.printStackTrace();
+                        }
+                    }
+                    else
+                        JOptionPane.showMessageDialog(null, "Voce não selecionou nenhum arquivo.");
+                }
+                else
+                    JOptionPane.showMessageDialog(null, "Voce não selecionou nenhum arquivo.");
+            }
+        });
+
+        btnGerarTorrent.setBounds(360, 11, 161, 30);
+        panel.add(btnGerarTorrent);
+
+
         JButton btnExit = new JButton("Sair");
         btnExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

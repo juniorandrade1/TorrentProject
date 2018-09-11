@@ -3,6 +3,7 @@ package ModuleFile;
 import ModuleSearch.SearchController;
 import ModuleSearch.SearchQueue;
 
+import java.io.File;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 
@@ -11,7 +12,7 @@ public class FileController {
     public static void addFile(String path) throws Exception{
         FileClass file = new FileClass(path);
         files.put(file.getId(), file);
-        System.out.println(file.getInfo());
+        //System.out.println(file.getInfo());
     }
     public static boolean hasPart(String id, int part) {
         FileClass file = files.get(id);
@@ -37,5 +38,14 @@ public class FileController {
     }
     static public FileClass getFile(String id) {
         return files.get(id);
+    }
+    static public void generateTorrentFile(String path, String pathFile) throws RemoteException {
+        try {
+            FileClass file = new FileClass(path);
+            file.createInfoFile(pathFile);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
